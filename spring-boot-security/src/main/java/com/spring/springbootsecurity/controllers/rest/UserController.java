@@ -5,6 +5,8 @@ import com.spring.springbootsecurity.entities.User;
 import com.spring.springbootsecurity.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,6 +17,8 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/users")
+//this annotation is used for annotation role based authentication it you are not using antMatchers in SpringSecurity configuration class
+//@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class UserController {
     @Autowired
     UserService userService;
@@ -40,6 +44,8 @@ public class UserController {
     }
 
     @DeleteMapping("delete/{id}")
+    //this annotation is used for annotation role based authentication it you are not using antMatchers in SpringSecurity configuration class
+    //@PreAuthorize("hasRole('ADMIN')")
     public User deleteUser(@PathVariable("id")Integer id){
         return userService.deleteUser(id);
     }
