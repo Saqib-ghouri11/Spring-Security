@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/pub")
-public class HomeController {
+public class HomeRestController {
 
     @GetMapping("/")
     public String home(){
@@ -20,4 +20,6 @@ public class HomeController {
     public String register(){
         return "Welcome to Spring Security register.";
     }
+
+
 }

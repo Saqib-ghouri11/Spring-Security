@@ -19,7 +19,7 @@ import java.util.Map;
 @RequestMapping("/users")
 //this annotation is used for annotation role based authentication it you are not using antMatchers in SpringSecurity configuration class
 //@EnableGlobalMethodSecurity(prePostEnabled = true)
-public class UserController {
+public class UserRestController {
     @Autowired
     UserService userService;
 

@@ -22,8 +22,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers(HttpMethod.DELETE,"/users/delete/**").hasRole("ADMIN")
                 .antMatchers("/pub/**").permitAll()
+                .antMatchers("/signin").permitAll()
                 .anyRequest().authenticated()
-                .and().httpBasic();
+                .and().formLogin()
+                .loginPage("/signin")
+                .loginProcessingUrl("/doLogin")
+                .defaultSuccessUrl("/pub/")
+                .and()
+                .logout().logoutUrl("/logout")
+                .invalidateHttpSession(true).deleteCookies().logoutSuccessUrl("/signin");
     }
 
     @Override
