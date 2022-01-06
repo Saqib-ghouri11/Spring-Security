@@ -1,8 +1,10 @@
 package com.spring.springbootsecurity.repos;
 
-import com.spring.springbootsecurity.adapters.UserDao;
+import com.spring.springbootsecurity.entities.User;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface UserRepository extends UserDao {
+public interface UserRepository extends JpaRepository<User,Integer> {
+    User findByEmail(String email);
 }

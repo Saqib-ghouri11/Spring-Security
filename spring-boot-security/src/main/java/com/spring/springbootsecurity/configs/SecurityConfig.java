@@ -18,7 +18,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-                .csrf().disable()
+                .csrf().disable()//this Cross-site request forgery, also known as one-click attack or session riding and abbreviated as CSRF or XSRF, is a type of malicious exploit of a website where unauthorized commands are submitted from a user that the web application trusts.(wikipedia)
+                //shouldn't be disabled in production mode.
                 .authorizeRequests()
                 .antMatchers(HttpMethod.DELETE,"/users/delete/**").hasRole("ADMIN")
                 .antMatchers("/pub/**").permitAll()
@@ -27,22 +28,23 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and().formLogin()
                 .loginPage("/signin")
                 .loginProcessingUrl("/doLogin")
-                .defaultSuccessUrl("/pub/")
+                .defaultSuccessUrl("/home")
                 .and()
                 .logout().logoutUrl("/logout")
                 .invalidateHttpSession(true).deleteCookies().logoutSuccessUrl("/signin");
     }
-
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-       auth.inMemoryAuthentication().withUser("saqib").password(getPasswordEncoder().encode("123456")).roles("ADMIN");
-        auth.inMemoryAuthentication().withUser("ali").password(getPasswordEncoder().encode("12345")).roles("NORMAL");
-    }
-
     @Bean
     PasswordEncoder getPasswordEncoder() {
         return new BCryptPasswordEncoder();
     }
+//this method can be used to provide inMemory user credentials
+//    @Override
+//    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+//       auth.inMemoryAuthentication().withUser("saqib").password(getPasswordEncoder().encode("123456")).roles("ADMIN");
+//        auth.inMemoryAuthentication().withUser("ali").password(getPasswordEncoder().encode("12345")).roles("NORMAL");
+//    }
+
+
     // the commented code below can be used with no password encoding and is not recommended in production.
 //    @Override
 //    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
