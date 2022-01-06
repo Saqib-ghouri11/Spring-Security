@@ -26,14 +26,14 @@ public class SpringBootSecurityApplication implements CommandLineRunner {
 		user1.setUsername("saqib");
 		user1.setEmail("saqib@example.com");
 		user1.setPassword(this.passwordEncoder.encode("123456"));
-		user1.setRole("ADMIN");
+		user1.setRole("ROLE_ADMIN");
 
 		User user2= new User();
 		user2.setId(2);
 		user2.setUsername("ali");
 		user2.setEmail("ali@example.com");
 		user2.setPassword(this.passwordEncoder.encode("12345"));
-		user2.setRole("NORMAL");
+		user2.setRole("ROLE_NORMAL");
 
 		userRepository.save(user1);
 		userRepository.save(user2);
